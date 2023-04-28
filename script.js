@@ -1,84 +1,35 @@
 // function to calculate the interpolated population for a given year
-function interpolatePopulation(year, x, y) {
-    let result = 0;
+function interpolatePopulation(year) {
+    let x = [1990, 1995, 2000, 2005, 2010, 2015, 2020];
+    let y = [33636, 36245, 38878, 41573, 43997, 46156, 48784];
+    let yp = 0;
+    let p;
     for (let i = 0; i < x.length; i++) {
-        let term = y[i];
+        p = 1;
         for (let j = 0; j < x.length; j++) {
-            if (j !== i) {
-                term = term * (year - x[j]) / (x[i] - x[j]);
+            if (i !== j) {
+                p *= (year - x[j]) / (x[i] - x[j]);
             }
         }
-        result += term;
+        yp += p * y[i];
     }
-    return result;
+    return yp;
 }
 
-// get form elements and chart canvas
+// get form elements
 const form = document.getElementById('pop-form');
-const currentPopInput = document.getElementById('current-pop');
-const growthRateInput = document.getElementById('growth-rate');
-const yearsInput = document.getElementById('years');
+const yearInput = document.getElementById('year-input');
 const predictBtn = document.getElementById('predict-btn');
-const chartCanvas = document.getElementById('pop-chart');
-
-// set default chart options
-Chart.defaults.global.legend.display = false;
-Chart.defaults.global.tooltips.enabled = false;
-Chart.defaults.global.elements.line.fill = false;
-
-// initialize empty chart
-const chart = new Chart(chartCanvas, {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-            data: [],
-            borderColor: '#4CAF50',
-            borderWidth: 2
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                ticks: {
-                    stepSize: 1
-                }
-            }]
-        }
-    }
-});
-
-// function to update chart with predicted population values
-function updateChart(labels, data) {
-    chart.data.labels = labels;
-    chart.data.datasets[0].data = data;
-    chart.update();
-}
-
-// function to display prediction result
-function displayResult(result) {
-    const resultContainer = document.getElementById('prediction-result');
-    resultContainer.innerText = `The predicted population in ${yearsInput.value} years is ${result.toFixed(2)}.`;
-}
+const resultContainer = document.getElementById('result-container');
 
 // function to handle form submission
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // get form values
-    const currentPop = parseInt(currentPopInput.value);
-    const growthRate = parseInt(growthRateInput.value);
-    const years = parseInt(yearsInput.value);
+    // get input value and calculate interpolated population
+    const year = parseInt(yearInput.value);
+    const population = interpolatePopulation(year);
 
-    // calculate population for each year
-    let yearsArr = [];
-    let popsArr = [];
-    for (let i = 0; i <= years; i++) {
-        yearsArr.push(i);
-        popsArr.push(interpolatePopulation(i, [0, 10], [currentPop, currentPop * (1 + (growthRate/100) * 10)]));
-    }
-
-    // update chart and display result
-    updateChart(yearsArr, popsArr);
-    displayResult(popsArr[years]);
-});
+    // display result
+    resultContainer.innerText = `The predicted population in ${year} is ${population.toFixed(2)} / 100.\n Data for this result is collected from these of datas
+    1990, 1995, 2000, 2005, 2010, 2015, 2020`;''});
