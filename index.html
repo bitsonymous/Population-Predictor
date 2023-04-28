@@ -1,38 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Population Prediction</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
+	<title>Population Interpolation</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header>
+	<header><center>
+		<h1>FEC 45 Project</h1>
 		<h1>Population Prediction</h1>
+		
 	</header>
+
 	<main>
-		<div class="container">
-			<form id="pop-form">
-				<label for="current-pop">Current Population:</label>
-				<input type="number" id="current-pop" required>
+		<form id="pop-form">
+			<label for="year-input">Population Year:</label>
+			<input type="number" id="year-input" required>
+			<button type="submit" id="predict-btn">Predict</button>
+		</form>
 
-				<label for="growth-rate">Growth Rate (%):</label>
-				<input type="number" id="growth-rate" required>
-
-				<label for="years">Years:</label>
-				<input type="number" id="years" required>
-
-				<button type="submit" id="predict-btn">Predict Population</button>
-			</form>
-
-			<div id="chart-container">
-				<canvas id="pop-chart"></canvas>
-			</div>
-
-			<div id="prediction-result"></div>
-		</div>
+		<div id="result-container"></div>
 	</main>
+	<div> <p>This population prediction project is made using HTML, CSS, and JavaScript. <br>We applied mathematical formulas, including the Lagrange interpolation method,<br> to predict the population of New Zealand. The data used in this <br>project was collected from the World Bank.</p>
+		<p>by Himanshu and Tanuj</p>
+	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-	<script src="script.js"></script>
+	<script src="script.js"></script></center>
 </body>
 </html>
